@@ -4,6 +4,17 @@ const TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_IDS = ['1455108039']; // второй можешь раскомментировать
 
 module.exports = async (req, res) => {
+    // ✅ Разрешаем CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // ✅ Обработка preflight-запроса от браузера
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    // ✅ Разрешаем только POST
     if (req.method !== 'POST') {
         return res.status(405).send('Method Not Allowed');
     }
